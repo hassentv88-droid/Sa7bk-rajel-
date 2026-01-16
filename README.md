@@ -180,5 +180,5 @@ closeBtn.onclick=()=>{
 };
 </script>
 
-</body>
+</body
 </html>
