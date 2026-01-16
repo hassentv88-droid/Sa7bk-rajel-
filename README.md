@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
@@ -60,7 +60,7 @@
   <main>
     <!-- هنا تحط رابط الفيديو -->
     <video controls>
-      <source src="VIDEO.mp4" type="video/mp4">
+      <source src="/storage/emulated/0/Android/data/com.fazil.htmleditor/files/Documents/httpsfonts.googleapis.comcss2familyAntondisplayswap/media/videos/TUNISIA Explained in 12 Minutes (History, Geography, & Culture).mp4" type="video/mp4">
       المتصفح الخاص بك لا يدعم عرض الفيديو.
     </video>
   </main>
@@ -68,4 +68,4 @@
   <footer>حقوق الطبع © 2026</footer>
 
 </body>
-</html
+</html>
