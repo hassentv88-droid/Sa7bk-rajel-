@@ -68,4 +68,4 @@
   <footer>حقوق الطبع © 2026</footer>
 
 </body>
-</html>
+</html
