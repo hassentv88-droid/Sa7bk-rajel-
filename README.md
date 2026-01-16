@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
@@ -128,10 +128,13 @@ footer{
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true">
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true">
 
-  <!-- إضافة مسلسل الطبيب المعجزة فقط -->
-  <img src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg"
-       data-video="https://www.w3schools.com/html/mov_bbb.mp4"
+  <!-- 💥 هنا مسلسل الطبيب المعجزة -->
+  <!-- الصورة تعمل كزر، عند الضغط عليها يشغل الفيديو -->
+  <img id="special-movie"
+       src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg"
        alt="مسلسل الطبيب المعجزة">
+  <!-- ضع الفيديو الخاص بك هنا على الجهاز، المسار الذي أعطيته لك -->
+  <!-- مثال: /storage/emulated/0/Android/data/com.fazil.htmleditor/files/Documents/hshs/media/videos/4_5824321466962806937.mp4 -->
 </div>
 
 <!-- MOVIES -->
@@ -150,7 +153,7 @@ footer{
        data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
 
-<!-- VIDEO PLAYER -->
+<!-- VIDEO PLAYER الافتراضي -->
 <div id="player-container">
   <video id="player" controls autoplay></video>
   <button id="close-player">إغلاق</button>
@@ -167,6 +170,7 @@ const playerBox = document.getElementById('player-container');
 const player = document.getElementById('player');
 const closeBtn = document.getElementById('close-player');
 
+// المشغّل الافتراضي لكل الفيديوهات العادية
 images.forEach(img=>{
   img.onclick=()=>{
     player.src = img.dataset.video;
@@ -178,7 +182,14 @@ closeBtn.onclick=()=>{
   player.pause();
   playerBox.style.display="none";
 };
+
+// 🌟 خاص بمسلسل الطبيب المعجزة
+const specialMovie = document.getElementById('special-movie');
+specialMovie.onclick = () => {
+  // 💡 ضع هنا مسار الفيديو على جهازك
+  window.location.href = "/storage/emulated/0/Android/data/com.fazil.htmleditor/files/Documents/httpsfonts.googleapis.comcss2familyAntondisplayswap/media/videos/4_5824321466962806937.mp4";
+};
 </script>
 
-</body
+</body>
 </html>
