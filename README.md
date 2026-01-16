@@ -179,7 +179,7 @@ images.forEach(img=>{
 });
 
 closeBtn.onclick=()=>{
-  player.pause();
+  player.pause()
   playerBox.style.display="none";
 };
 
@@ -191,5 +191,5 @@ specialMovie.onclick = () => {
 };
 </script>
 
-</body>
+</body
 </html>
