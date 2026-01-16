@@ -2,191 +2,182 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>منصة الأفلام</title>
+<title>Cinema</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f0f0f;
-    color: white;
+:root {
+  --primary:#141414;
+  --light:#f3f3f3;
+  --dark:#686868;
+  --red:#e50914;
 }
 
-header {
-    background: #111;
-    padding: 15px 30px;
-    font-size: 24px;
-    font-weight: bold;
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--primary);
+  color:var(--light);
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-.section {
-    padding: 20px;
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:var(--primary);
+  padding:10px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:100;
 }
 
-.movies {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+.cinemaLogo h1{
+  color:var(--red);
+  font-family:'Anton',sans-serif;
+  font-size:46px;
 }
 
-.movie {
-    width: 200px;
-    height: 120px;
-    background: #222;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.3s;
-    text-align: center;
-    padding: 5px;
+/* ICONS */
+.fab.logo{
+  color:var(--light);
+  margin:10px;
+  transition:0.3s;
+}
+.fab.logo:hover{color:var(--red)}
+
+/* SECTIONS */
+.section-title{
+  margin:100px 20px 10px;
 }
 
-.movie:hover {
-    background: red;
+.box{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:10px 20px;
+}
+.box::-webkit-scrollbar{display:none}
+
+.box img{
+  width:200px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.box img:hover{transform:scale(1.1)}
+
+/* VIDEO PLAYER */
+#player-container{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  z-index:999;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+#player-container video{
+  max-width:90%;
+  max-height:80%;
+}
+#player-container button{
+  margin-top:15px;
+  padding:10px 20px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
 }
 
-/* نافذة كلمة المرور */
-#passwordBox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-}
-
-.password-content {
-    background: #111;
-    padding: 25px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-}
-
-.password-content input {
-    padding: 10px;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.password-content button {
-    padding: 10px;
-    width: 100%;
-    border: none;
-    background: red;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#error {
-    color: #ff4d4d;
-    margin-top: 10px;
-    display: none;
-}
-
-/* المشغل */
-#player {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: black;
-    z-index: 2000;
-}
-
-#close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 22px;
-    cursor: pointer;
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  color:var(--dark);
 }
 </style>
 </head>
 
 <body>
 
-<header>🎬 منصة الأفلام</header>
+<!-- HEADER -->
+<header>
+  <div class="cinemaLogo">
+    <h1>Cinema</h1>
+  </div>
+  <div>
+    <i class="fab fa-instagram fa-2x logo"></i>
+    <i class="fab fa-twitter fa-2x logo"></i>
+    <a href="https://www.youtube.com/@user-ri4vx7fq4o" target="_blank">
+      <i class="fab fa-youtube fa-2x logo"></i>
+    </a>
+  </div>
+</header>
 
-<div class="section">
-<h2>👑 أفلام العرش</h2>
-<div class="movies">
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=gcTkNV5Vg1E')">فيلم العرش 1</div>
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=KPLWWIOCOOQ')">فيلم العرش 2</div>
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=bjqEWgDVPe0')">فيلم تاريخي</div>
-</div>
-</div>
+<!-- TV SHOWS -->
+<h1 class="section-title">TV Shows</h1>
+<div class="box">
+  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true">
+  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true">
 
-<div class="section">
-<h2>🔥 أفلام عربية</h2>
-<div class="movies">
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">فيلم عربي 1</div>
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=9bZkp7q19f0')">فيلم عربي 2</div>
-    <div class="movie" onclick="askPassword()">صاحبك راجل 🔐</div>
-</div>
-</div>
-
-<div class="section">
-<h2>🍿 أفلام أخرى</h2>
-<div class="movies">
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=l482T0yNkeo')">فيلم أكشن</div>
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=3tmd-ClpJxA')">فيلم دراما</div>
-    <div class="movie" onclick="openYT('https://www.youtube.com/watch?v=fLexgOxsZu0')">فيلم عالمي</div>
-</div>
+  <!-- إضافة مسلسل الطبيب المعجزة فقط -->
+  <img src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg"
+       data-video="https://www.w3schools.com/html/mov_bbb.mp4"
+       alt="مسلسل الطبيب المعجزة">
 </div>
 
-<!-- نافذة كلمة المرور -->
-<div id="passwordBox">
-<div class="password-content">
-    <h3>🔐 أدخل كلمة المرور</h3>
-    <input type="password" id="password" placeholder="كلمة المرور">
-    <button onclick="checkPassword()">دخول</button>
-    <div id="error">هذا الكود غير صالح أو خاطئ</div>
-</div>
+<!-- MOVIES -->
+<h1 class="section-title">Movies</h1>
+<div class="box">
+  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true"
+       data-video="https://www.w3schools.com/html/mov_bbb.mp4">
+  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m2.PNG?raw=true"
+       data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
 
-<!-- المشغل -->
-<div id="player">
-<div id="close" onclick="closePlayer()">✖</div>
-<iframe
-sandbox="allow-same-origin allow-forms allow-popups allow-modals allow-scripts allow-pointer-lock"
-width="100%" height="100%"
-allow="fullscreen"
-src="https://jorogo9825-wixstudio-com.filesusr.com/html/a225c5_576ba47e7d640551badc16a96383a6f2.html">
-</iframe>
+<!-- ORIGINALS -->
+<h1 class="section-title">Cinema Originals</h1>
+<div class="box">
+  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o1.PNG?raw=true"
+       data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
+
+<!-- VIDEO PLAYER -->
+<div id="player-container">
+  <video id="player" controls autoplay></video>
+  <button id="close-player">إغلاق</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Cinema — جميع الحقوق محفوظة</p>
+</footer>
 
 <script>
-const correctPassword = "Hwod6G";
+const images = document.querySelectorAll('[data-video]');
+const playerBox = document.getElementById('player-container');
+const player = document.getElementById('player');
+const closeBtn = document.getElementById('close-player');
 
-function openYT(link) {
-    window.open(link, "_blank");
-}
+images.forEach(img=>{
+  img.onclick=()=>{
+    player.src = img.dataset.video;
+    playerBox.style.display="flex";
+  }
+});
 
-function askPassword() {
-    document.getElementById("passwordBox").style.display = "flex";
-    document.getElementById("error").style.display = "none";
-    document.getElementById("password").value = "";
-}
-
-function checkPassword() {
-    const pass = document.getElementById("password").value;
-    if (pass === correctPassword) {
-        document.getElementById("passwordBox").style.display = "none";
-        document.getElementById("player").style.display = "block";
-    } else {
-        document.getElementById("error").style.display = "block";
-    }
-}
-
-function closePlayer() {
-    document.getElementById("player").style.display = "none";
-}
+closeBtn.onclick=()=>{
+  player.pause();
+  playerBox.style.display="none";
+};
 </script>
 
 </body>
