@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
@@ -187,7 +187,7 @@ closeBtn.onclick=()=>{
 const specialMovie = document.getElementById('special-movie');
 specialMovie.onclick = () => {
   // 💡 ضع هنا مسار الفيديو على جهازك
-  window.location.href = "/storage/emulated/0/Android/data/com.fazil.htmleditor/files/Documents/httpsfonts.googleapis.comcss2familyAntondisplayswap/media/videos/4_5824321466962806937.mp4";
+  window.location.href = "/storage/emulated/0/Android/data/com.fazil.htmleditor/files/Documents/httpsfonts.googleapis.comcss2familyAntondisplayswap/media/videos/TUNISIA Explained in 12 Minutes (History, Geography, & Culture).mp4";
 };
 </script>
 
