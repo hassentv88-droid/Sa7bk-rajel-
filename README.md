@@ -192,5 +192,4 @@ specialMovie.onclick = () => {
 </script>
 
 </body>
-</html
- 
+</html>
