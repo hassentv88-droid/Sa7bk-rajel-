@@ -101,8 +101,6 @@ footer{
   inset:0;
   background:rgba(0,0,0,0.95);
   z-index:999;
-  justify-content:center;
-  align-items:center;
 }
 
 #player-fullscreen iframe{
@@ -118,13 +116,6 @@ footer{
 
 <header>
   <div class="cinemaLogo"><h1>Cinema</h1></div>
-  <div>
-    <i class="fab fa-instagram fa-2x logo"></i>
-    <i class="fab fa-twitter fa-2x logo"></i>
-    <a href="https://www.youtube.com/@user-ri4vx7fq4o" target="_blank">
-      <i class="fab fa-youtube fa-2x logo"></i>
-    </a>
-  </div>
 </header>
 
 <!-- TV SHOWS -->
@@ -134,7 +125,7 @@ footer{
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true">
 
   <!-- الطبيب المعجزة -->
-  <img id="doctor" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg" alt="مسلسل الطبيب المعجزة">
+  <img id="doctor" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg">
 </div>
 
 <!-- MOVIES -->
@@ -142,27 +133,23 @@ footer{
 <div class="box">
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true"
        data-video="https://www.w3schools.com/html/mov_bbb.mp4">
-  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m2.PNG?raw=true"
-       data-video="https://www.w3schools.com/html/mov_bbb.mp4">
-</div>
-
-<!-- ORIGINALS -->
-<h1 class="section-title">Cinema Originals</h1>
-<div class="box">
-  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o1.PNG?raw=true"
-       data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
 
 <!-- POPUP EPISODES -->
 <div id="episodes-popup">
   <h2>مسلسل الطبيب المعجزة</h2>
+
   <button class="episode-btn" id="ep13">▶ الحلقة 13</button>
+  <button class="episode-btn" id="ep14">▶ الحلقة 14</button>
+
   <button class="episode-btn" id="close-episodes">إغلاق</button>
 </div>
 
 <!-- PLAYER FULLSCREEN -->
 <div id="player-fullscreen">
-  <iframe id="iframePlayer" src="" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="الطبيب المعجزة"></iframe>
+  <iframe id="iframePlayer"
+    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+    allowfullscreen></iframe>
 </div>
 
 <footer>
@@ -170,64 +157,37 @@ footer{
 </footer>
 
 <script>
-// الأفلام العادية
-document.querySelectorAll('[data-video]').forEach(img=>{
-  img.onclick=()=>{
-    const playerBox = document.createElement("div");
-    playerBox.style.position="fixed";
-    playerBox.style.inset="0";
-    playerBox.style.background="rgba(0,0,0,0.95)";
-    playerBox.style.display="flex";
-    playerBox.style.justifyContent="center";
-    playerBox.style.alignItems="center";
-    playerBox.style.zIndex="999";
-    const video = document.createElement("video");
-    video.src = img.dataset.video;
-    video.controls = true;
-    video.autoplay = true;
-    video.style.width="90%";
-    video.style.height="80%";
-    playerBox.appendChild(video);
-    document.body.appendChild(playerBox);
-    video.onended = ()=>{ playerBox.remove(); }
-    playerBox.onclick = ()=>{ playerBox.remove(); }
-  }
-});
-
-// عند الضغط على صورة الطبيب المعجزة → عرض قائمة الحلقات
+// عرض قائمة الحلقات
 const doctor = document.getElementById("doctor");
 const episodes = document.getElementById("episodes-popup");
-const closeEpisodes = document.getElementById("close-episodes");
-const ep13 = document.getElementById("ep13");
+doctor.onclick = ()=> episodes.style.display="flex";
 
-doctor.onclick = ()=>{
-  episodes.style.display = "flex";
+document.getElementById("close-episodes").onclick = ()=>{
+  episodes.style.display="none";
 };
 
-// عند الضغط على الحلقة 13 → فتح الفيديو fullscreen
+// تشغيل الفيديو fullscreen
 const playerFullscreen = document.getElementById("player-fullscreen");
 const iframePlayer = document.getElementById("iframePlayer");
 
-ep13.onclick = async ()=>{
-  episodes.style.display = "none"; // اغلاق القائمة
-  iframePlayer.src = "https://player.vimeo.com/video/1155509564?badge=0&autopause=0&player_id=0&app_id=58479";
-  playerFullscreen.style.display="flex";
-
-  // طلب Fullscreen تلقائي
-  if (playerFullscreen.requestFullscreen) {
-    await playerFullscreen.requestFullscreen();
-  } else if (playerFullscreen.webkitRequestFullscreen) {
-    await playerFullscreen.webkitRequestFullscreen();
-  } else if (playerFullscreen.msRequestFullscreen) {
-    await playerFullscreen.msRequestFullscreen();
-  }
+// الحلقة 13
+document.getElementById("ep13").onclick = async ()=>{
+  episodes.style.display="none";
+  iframePlayer.src =
+  "https://player.vimeo.com/video/1155509564?badge=0&autopause=0&player_id=0&app_id=58479";
+  playerFullscreen.style.display="block";
+  playerFullscreen.requestFullscreen?.();
 };
 
-// إغلاق قائمة الحلقات
-closeEpisodes.onclick = ()=>{
-  episodes.style.display = "none";
+// الحلقة 14 (الجديدة)
+document.getElementById("ep14").onclick = async ()=>{
+  episodes.style.display="none";
+  iframePlayer.src =
+  "https://player.vimeo.com/video/1155548749?badge=0&autopause=0&player_id=0&app_id=58479";
+  playerFullscreen.style.display="block";
+  playerFullscreen.requestFullscreen?.();
 };
 </script>
 
 </body>
-</html
+</html>
