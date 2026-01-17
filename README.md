@@ -64,36 +64,14 @@ header{
 }
 .box img:hover{transform:scale(1.1)}
 
-/* PLAYER */
-#player-container{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.95);
-  z-index:999;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  color:var(--dark);
 }
 
-#player-container video,
-#player-container iframe{
-  width:90%;
-  height:80%;
-  border:none;
-}
-
-#close-player{
-  margin-top:15px;
-  padding:10px 20px;
-  background:var(--red);
-  color:#fff;
-  border:none;
-  font-size:18px;
-  cursor:pointer;
-}
-
-/* EPISODES POPUP */
+/* POPUP EPISODES */
 #episodes-popup{
   display:none;
   position:fixed;
@@ -116,11 +94,47 @@ header{
   border-radius:6px;
 }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:20px;
-  color:var(--dark);
+/* PLAYER TEMPLATE */
+#player-template{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  z-index:999;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+#video-box{
+  position:relative;
+  width:80%;
+  max-width:900px;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:10px;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+#video-box iframe{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border:none;
+  transition:all 0.3s ease;
+}
+
+#template-close{
+  margin-top:15px;
+  padding:10px 20px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -129,6 +143,13 @@ footer{
 
 <header>
   <div class="cinemaLogo"><h1>Cinema</h1></div>
+  <div>
+    <i class="fab fa-instagram fa-2x logo"></i>
+    <i class="fab fa-twitter fa-2x logo"></i>
+    <a href="https://www.youtube.com/@user-ri4vx7fq4o" target="_blank">
+      <i class="fab fa-youtube fa-2x logo"></i>
+    </a>
+  </div>
 </header>
 
 <!-- TV SHOWS -->
@@ -137,12 +158,13 @@ footer{
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true">
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true">
 
-  <!-- الطبيب المعجزة (فقط هذا) -->
+  <!-- الطبيب المعجزة -->
   <img id="doctor"
-    src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg">
+       src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg"
+       alt="مسلسل الطبيب المعجزة">
 </div>
 
-<!-- MOVIES (لم نلمسهم) -->
+<!-- MOVIES -->
 <h1 class="section-title">Movies</h1>
 <div class="box">
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true"
@@ -151,17 +173,26 @@ footer{
        data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
 
-<!-- PLAYER -->
-<div id="player-container">
-  <iframe id="iframePlayer" allowfullscreen></iframe>
-  <button id="close-player">إغلاق</button>
+<!-- ORIGINALS -->
+<h1 class="section-title">Cinema Originals</h1>
+<div class="box">
+  <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o1.PNG?raw=true"
+       data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
 
-<!-- EPISODES -->
+<!-- EPISODES POPUP -->
 <div id="episodes-popup">
   <h2>مسلسل الطبيب المعجزة</h2>
-  <button class="episode-btn" id="ep1">▶ الحلقة 1</button>
+  <button class="episode-btn" id="ep13">▶ الحلقة 13</button>
   <button class="episode-btn" id="close-episodes">إغلاق</button>
+</div>
+
+<!-- PLAYER TEMPLATE -->
+<div id="player-template">
+  <div id="video-box">
+    <iframe id="iframe-template" src="" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen title="الطبيب_المعجزة_مدبلج_الحلقة_13"></iframe>
+  </div>
+  <button id="template-close">إغلاق</button>
 </div>
 
 <footer>
@@ -169,43 +200,64 @@ footer{
 </footer>
 
 <script>
-/* الأفلام العادية */
+// الأفلام العادية
 document.querySelectorAll('[data-video]').forEach(img=>{
   img.onclick=()=>{
-    iframePlayer.src = img.dataset.video;
+    const playerBox = document.createElement("div");
+    playerBox.style.position="fixed";
+    playerBox.style.inset="0";
+    playerBox.style.background="rgba(0,0,0,0.95)";
     playerBox.style.display="flex";
+    playerBox.style.justifyContent="center";
+    playerBox.style.alignItems="center";
+    playerBox.style.zIndex="999";
+    const video = document.createElement("video");
+    video.src = img.dataset.video;
+    video.controls = true;
+    video.autoplay = true;
+    video.style.width="90%";
+    video.style.height="80%";
+    playerBox.appendChild(video);
+    document.body.appendChild(playerBox);
+    video.onended = ()=>{ playerBox.remove(); }
+    playerBox.onclick = ()=>{ playerBox.remove(); }
   }
 });
 
-/* الطبيب المعجزة */
+// الطبيب المعجزة
 const doctor = document.getElementById("doctor");
 const episodes = document.getElementById("episodes-popup");
-const ep1 = document.getElementById("ep1");
+const ep13 = document.getElementById("ep13");
 const closeEpisodes = document.getElementById("close-episodes");
 
-const playerBox = document.getElementById("player-container");
-const iframePlayer = document.getElementById("iframePlayer");
-const closePlayer = document.getElementById("close-player");
+const playerTemplate = document.getElementById("player-template");
+const iframeTemplate = document.getElementById("iframe-template");
+const closeTemplate = document.getElementById("template-close");
 
-doctor.onclick = ()=>{
-  episodes.style.display="flex";
+doctor.onclick = ()=>{ episodes.style.display = "flex"; }
+
+ep13.onclick = ()=>{
+  episodes.style.display = "none";
+  iframeTemplate.src = "https://player.vimeo.com/video/1155509564?badge=0&autopause=0&player_id=0&app_id=58479";
+  playerTemplate.style.display = "flex";
+  iframeTemplate.style.width = "100%";
+  iframeTemplate.style.height = "100%";
+  iframeTemplate.style.objectFit = "contain";
 };
 
-ep1.onclick = ()=>{
-  episodes.style.display="none";
-  iframePlayer.src = "https://streamable.com/e/cqfwth";
-  playerBox.style.display="flex";
+// إغلاق القالب
+closeTemplate.onclick = ()=>{
+  iframeTemplate.src="";
+  playerTemplate.style.display = "none";
+  iframeTemplate.style.width = "100%";
+  iframeTemplate.style.height = "100%";
+  iframeTemplate.style.objectFit = "contain";
 };
 
-closeEpisodes.onclick = ()=>{
-  episodes.style.display="none";
-};
+// إغلاق قائمة الحلقات
+closeEpisodes.onclick = ()=>{ episodes.style.display = "none"; }
 
-closePlayer.onclick = ()=>{
-  iframePlayer.src="";
-  playerBox.style.display="none";
-};
 </script>
 
 </body>
-</html
+</html>
