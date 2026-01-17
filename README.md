@@ -71,6 +71,29 @@ footer{
   color:var(--dark);
 }
 
+/* POPUP EPISODES */
+#episodes-popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  z-index:998;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.episode-btn{
+  padding:12px 20px;
+  margin:10px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+  border-radius:6px;
+}
+
 /* PLAYER FULLSCREEN */
 #player-fullscreen{
   display:none;
@@ -110,8 +133,8 @@ footer{
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true">
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true">
 
-  <!-- الحلقة 13 مباشرة -->
-  <img id="ep13" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg" alt="حلقة 13 الطبيب المعجزة">
+  <!-- الطبيب المعجزة -->
+  <img id="doctor" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg" alt="مسلسل الطبيب المعجزة">
 </div>
 
 <!-- MOVIES -->
@@ -128,6 +151,13 @@ footer{
 <div class="box">
   <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/o1.PNG?raw=true"
        data-video="https://www.w3schools.com/html/mov_bbb.mp4">
+</div>
+
+<!-- POPUP EPISODES -->
+<div id="episodes-popup">
+  <h2>مسلسل الطبيب المعجزة</h2>
+  <button class="episode-btn" id="ep13">▶ الحلقة 13</button>
+  <button class="episode-btn" id="close-episodes">إغلاق</button>
 </div>
 
 <!-- PLAYER FULLSCREEN -->
@@ -164,16 +194,26 @@ document.querySelectorAll('[data-video]').forEach(img=>{
   }
 });
 
-// الحلقة 13 مباشرة على كامل الشاشة
+// عند الضغط على صورة الطبيب المعجزة → عرض قائمة الحلقات
+const doctor = document.getElementById("doctor");
+const episodes = document.getElementById("episodes-popup");
+const closeEpisodes = document.getElementById("close-episodes");
 const ep13 = document.getElementById("ep13");
+
+doctor.onclick = ()=>{
+  episodes.style.display = "flex";
+};
+
+// عند الضغط على الحلقة 13 → فتح الفيديو fullscreen
 const playerFullscreen = document.getElementById("player-fullscreen");
 const iframePlayer = document.getElementById("iframePlayer");
 
 ep13.onclick = async ()=>{
+  episodes.style.display = "none"; // اغلاق القائمة
   iframePlayer.src = "https://player.vimeo.com/video/1155509564?badge=0&autopause=0&player_id=0&app_id=58479";
   playerFullscreen.style.display="flex";
 
-  // تشغيل Fullscreen مباشرة
+  // طلب Fullscreen تلقائي
   if (playerFullscreen.requestFullscreen) {
     await playerFullscreen.requestFullscreen();
   } else if (playerFullscreen.webkitRequestFullscreen) {
@@ -182,6 +222,12 @@ ep13.onclick = async ()=>{
     await playerFullscreen.msRequestFullscreen();
   }
 };
+
+// إغلاق قائمة الحلقات
+closeEpisodes.onclick = ()=>{
+  episodes.style.display = "none";
+};
 </script>
+
 </body>
-</html
+</html>
