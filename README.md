@@ -260,4 +260,4 @@ closeEpisodes.onclick = ()=>{ episodes.style.display = "none"; }
 </script>
 
 </body>
-</html>
+</html
