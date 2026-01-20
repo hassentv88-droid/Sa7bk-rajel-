@@ -71,43 +71,18 @@ footer{
   color:var(--dark);
 }
 
-/* POPUP EPISODES */
-#episodes-popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.95);
-  z-index:998;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-}
-
-.episode-btn{
-  padding:12px 20px;
-  margin:10px;
-  background:var(--red);
-  color:#fff;
-  border:none;
-  font-size:18px;
-  cursor:pointer;
-  border-radius:6px;
-}
-
-/* PLAYER FULLSCREEN */
-#player-fullscreen{
+/* POPUP */
+#doctor-popup{
   display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.95);
   z-index:999;
 }
-
-#player-fullscreen iframe{
+#doctor-popup iframe{
   width:100%;
   height:100%;
   border:none;
-  object-fit:cover;
 }
 </style>
 </head>
@@ -135,21 +110,73 @@ footer{
        data-video="https://www.w3schools.com/html/mov_bbb.mp4">
 </div>
 
-<!-- POPUP EPISODES -->
-<div id="episodes-popup">
-  <h2>مسلسل الطبيب المعجزة</h2>
-
-  <button class="episode-btn" id="ep13">▶ الحلقة 13</button>
-  <button class="episode-btn" id="ep14">▶ الحلقة 14</button>
-
-  <button class="episode-btn" id="close-episodes">إغلاق</button>
-</div>
-
-<!-- PLAYER FULLSCREEN -->
-<div id="player-fullscreen">
-  <iframe id="iframePlayer"
-    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-    allowfullscreen></iframe>
+<!-- POPUP: iframe يحتوي الكود الثاني كما هو -->
+<div id="doctor-popup">
+  <iframe srcdoc='
+  <!DOCTYPE html>
+  <html lang="ar">
+  <head>
+  <meta charset="UTF-8">
+  <title>Nessma Style</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0c0c0c;color:#fff;font-family:Arial;}
+  .header{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;padding:15px;z-index:10;}
+  .header span{font-size:22px}
+  .cover{height:60vh;background:url("https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg") center/cover;position:relative;}
+  .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#0c0c0c,transparent);}
+  .content{padding:15px;}
+  h2{margin-bottom:10px}.desc{color:#bbb;margin-bottom:15px;}
+  .episodes-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .season{background:#222;padding:6px 12px;border-radius:20px;font-size:14px;}
+  .episode{position:relative;margin-bottom:15px;}
+  .episode img{width:100%;border-radius:10px;}
+  .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#e50914;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;}
+  .ep-title{margin-top:6px;font-size:15px;}
+  #player{position:fixed;inset:0;background:#000;display:none;z-index:999;}
+  #player iframe{width:100%;height:100%;border:none;}
+  </style>
+  </head>
+  <body>
+  <div class="header">
+    <span onclick="history.back()">←</span>
+    <span>🔍</span>
+  </div>
+  <div class="cover"></div>
+  <div class="content">
+    <h2>الطبيب المعجزة</h2>
+    <p class="desc">قصة طبيب عبقري يعاني من التوحّد، يثبت قدرته رغم كل الصعوبات.</p>
+    <div class="episodes-header">
+      <strong>الحلقات</strong>
+      <div class="season">Saison 01 ⌄</div>
+    </div>
+    <div class="episode" onclick="play(13)">
+      <img src="https://i.imgur.com/2yaf2wb.jpg">
+      <div class="play">▶</div>
+      <div class="ep-title">Episode 13</div>
+    </div>
+    <div class="episode" onclick="play(14)">
+      <img src="https://i.imgur.com/2yaf2wb.jpg">
+      <div class="play">▶</div>
+      <div class="ep-title">Episode 14</div>
+    </div>
+  </div>
+  <div id="player">
+    <iframe id="frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+  <script>
+  function play(ep){
+    const vids={13:"https://player.vimeo.com/video/1155509564?autoplay=1",
+                14:"https://player.vimeo.com/video/1155548749?autoplay=1"};
+    frame.src=vids[ep];
+    player.style.display="block";
+    player.requestFullscreen();
+  }
+  </script>
+  </body>
+  </html>
+  '></iframe>
 </div>
 
 <footer>
@@ -157,36 +184,26 @@ footer{
 </footer>
 
 <script>
-// عرض قائمة الحلقات
+// عرض popup iframe عند الضغط على طبيب المعجزة
 const doctor = document.getElementById("doctor");
-const episodes = document.getElementById("episodes-popup");
-doctor.onclick = ()=> episodes.style.display="flex";
+const popup = document.getElementById("doctor-popup");
 
-document.getElementById("close-episodes").onclick = ()=>{
-  episodes.style.display="none";
+doctor.onclick = ()=>{
+  popup.style.display = "block";
 };
 
-// تشغيل الفيديو fullscreen
-const playerFullscreen = document.getElementById("player-fullscreen");
-const iframePlayer = document.getElementById("iframePlayer");
-
-// الحلقة 13
-document.getElementById("ep13").onclick = async ()=>{
-  episodes.style.display="none";
-  iframePlayer.src =
-  "https://player.vimeo.com/video/1155509564?badge=0&autopause=0&player_id=0&app_id=58479";
-  playerFullscreen.style.display="block";
-  playerFullscreen.requestFullscreen?.();
+// إخفاء popup عند النقر على الخلفية
+popup.onclick = ()=>{
+  popup.style.display = "none";
 };
 
-// الحلقة 14 (الجديدة)
-document.getElementById("ep14").onclick = async ()=>{
-  episodes.style.display="none";
-  iframePlayer.src =
-  "https://player.vimeo.com/video/1155548749?badge=0&autopause=0&player_id=0&app_id=58479";
-  playerFullscreen.style.display="block";
-  playerFullscreen.requestFullscreen?.();
-};
+// تشغيل الفيديوهات الأخرى
+document.querySelectorAll('.box img[data-video]').forEach(img=>{
+  img.onclick = ()=>{
+    const videoSrc = img.getAttribute('data-video');
+    window.open(videoSrc, "_blank");
+  };
+});
 </script>
 
 </body>
