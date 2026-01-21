@@ -72,20 +72,20 @@
     </header>
 
     <h1 class="section-title">TV Shows</h1>
-    <div class="box">
-      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true">
-      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true">
-      <img id="doctor" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg">
+    <div class="box" style="display:flex; gap:12px; overflow-x:auto; padding:10px 0;">
+      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true" style="width:200px; border-radius:6px; cursor:pointer;">
+      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true" style="width:200px; border-radius:6px; cursor:pointer;">
+      <img id="doctor" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg" style="width:200px; border-radius:6px; cursor:pointer;">
     </div>
 
     <h1 class="section-title">Movies</h1>
-    <div class="box">
-      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true">
+    <div class="box" style="display:flex; gap:12px; overflow-x:auto; padding:10px 0;">
+      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true" style="width:200px; border-radius:6px; cursor:pointer;">
     </div>
 
     <div id="doctor-popup">
       <iframe srcdoc='
-        <!-- هنا محتوى iframe كما هو في الكود الأصلي بدون تغيير -->
+        <!-- محتوى iframe كما هو في الكود الأصلي بدون تغيير -->
       '></iframe>
     </div>
 
@@ -117,4 +117,4 @@
   </script>
 
 </body>
-</html،
+</html>
