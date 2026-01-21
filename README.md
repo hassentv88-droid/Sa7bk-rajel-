@@ -65,8 +65,8 @@
 
   <!-- محتوى الصفحة الثانية -->
   <div id="mainContent">
-    <h1>  !</h1>
-    <p><!DOCTYPE html>
+    <!-- الكود الثاني مباشرة بدون <p> -->
+    <!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
@@ -331,8 +331,6 @@ doctor.onclick = ()=> popup.style.display="block";
 popup.onclick = ()=> popup.style.display="none";
 </script>
 
-</body>
-</html></p>
   </div>
 
   <script>
