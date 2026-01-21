@@ -348,4 +348,4 @@ popup.onclick = ()=> popup.style.display="none";
     }, 4000); // 4 ثواني انتظار قبل البداية
   </script>
 </body>
-</html>
+</html
