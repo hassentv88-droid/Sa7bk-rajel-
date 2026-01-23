@@ -1,120 +1,92 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8"
-<title>Cinema</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>مشاهدة الفيلم</title>
 
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: black;
-    font-family: Arial, Helvetica, sans-serif;
-    position: relative;
-  }
-
-  /* شاشة البداية */
-  #splash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 1s ease; /* تأثير Fade Out */
-  }
-
-  .logo {
-    color: red;
-    font-size: 80px;
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
-
-  .version {
-    color: white;
-    font-size: 14px;
-    opacity: 0.8;
-    margin-top: 20px;
-  }
-
-  /* محتوى الصفحة الثانية مخفي في البداية */
-  #mainContent {
-    display: none;
-    padding: 20px;
-    color: white;
-    background: #111;
-    min-height: 100vh;
-  }
+body{
+  background:#000;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial;
+}
+.box{
+  background:#111;
+  padding:25px;
+  border-radius:10px;
+  text-align:center;
+  width:300px;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:5px;
+}
+button{
+  margin-top:15px;
+  padding:10px;
+  width:100%;
+  border:none;
+  background:red;
+  color:#fff;
+  font-size:16px;
+  border-radius:5px;
+  cursor:pointer;
+}
+#error{
+  color:#ff4d4d;
+  margin-top:10px;
+}
 </style>
 </head>
 
 <body>
-  <!-- شاشة البداية -->
-  <div id="splash">
-    <div class="logo">Cinema</div>
-    <div class="version">V.2.58.1</div>
-  </div>
 
-  <!-- محتوى الصفحة الثانية -->
-  <div id="mainContent">
+<div class="box">
+  <h3>لمشاهدة الفيلم</h3>
+  <p>الرجاء إدخال كلمة المرور</p>
+  <input type="password" id="password" placeholder="كلمة المرور">
+  <button onclick="checkPassword()">دخول</button>
+  <div id="error"></div>
+</div>
 
-    <!-- محتوى الصفحة الثانية مباشرة بدون html, head, body -->
-    <header>
-      <h1>Cinema</h1>
-    </header>
+<script>
+const passwords = [
+  "MOVIE123",
+  "VIP456",
+  "WATCH789",
+  "FILM2026"
+];
 
-    <h1 class="section-title">TV Shows</h1>
-    <div class="box" style="display:flex; gap:12px; overflow-x:auto; padding:10px 0;">
-      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv2.PNG?raw=true" style="width:200px; border-radius:6px; cursor:pointer;">
-      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/tv3.PNG?raw=true" style="width:200px; border-radius:6px; cursor:pointer;">
-      <img id="doctor" src="https://www.digital-discovery.tn/wp-content/uploads/2023/04/56c2b4e34-1-850x560.jpg" style="width:200px; border-radius:6px; cursor:pointer;">
-    </div>
+function checkPassword(){
+  var input = document.getElementById("password").value;
+  var error = document.getElementById("error");
 
-    <h1 class="section-title">Movies</h1>
-    <div class="box" style="display:flex; gap:12px; overflow-x:auto; padding:10px 0;">
-      <img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/m1.PNG?raw=true" style="width:200px; border-radius:6px; cursor:pointer;">
-    </div>
+  var used = JSON.parse(localStorage.getItem("usedPasswords") || "[]");
 
-    <div id="doctor-popup">
-      <iframe srcdoc='
-        <!-- محتوى iframe كما هو في الكود الأصلي بدون تغيير -->
-      '></iframe>
-    </div>
+  if(passwords.indexOf(input) === -1){
+    error.innerText = "كلمة المرور غير صحيحة";
+    return;
+  }
 
-  </div>
+  if(used.indexOf(input) !== -1){
+    error.innerText = "هذه الكلمة تم استعمالها من قبل";
+    return;
+  }
 
-  <script>
-    // بعد 4 ثواني، نبدأ تأثير Fade Out
-    setTimeout(function() {
-      const splash = document.getElementById('splash');
-      splash.style.opacity = 0;
+  used.push(input);
+  localStorage.setItem("usedPasswords", JSON.stringify(used));
 
-      // بعد انتهاء الفيد (1 ثانية)، نخفي الشاشة ونظهر الصفحة الثانية
-      setTimeout(function() {
-        splash.style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }, 1000); 
-    }, 4000);
-
-    // popup
-    const doctor = document.getElementById("doctor");
-    const popup = document.getElementById("doctor-popup");
-
-    doctor.onclick = ()=> popup.style.display="block";
-
-    // الغلق فقط إذا ضغطت خارج iframe
-    popup.addEventListener('click', function(e){
-      if(e.target === popup) popup.style.display="none";
-    });
-  </script>
+  // 🔁 تحويل مباشر
+  window.location.replace("https://jorogo9825.wixstudio.com/sahbekrajel22");
+}
+</script>
 
 </body>
-</html
+</html>
