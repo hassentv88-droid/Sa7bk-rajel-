@@ -4,12 +4,58 @@
 <meta charset="UTF-8">
 <title>سينما VIP</title>
 <style>
-body {margin:0;padding:0;font-family: Arial, sans-serif;background: linear-gradient(120deg,#0a0a0a,#1a1a1a);color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden;}
-.container {text-align:center;background: rgba(0,0,0,0.7);padding:40px;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,0.8);width:400px;position:relative;z-index:1;}
-input {padding:10px;margin:10px 0;border-radius:5px;border:none;width:90%;}
-button {padding:10px 20px;border:none;border-radius:5px;background:#ff4c4c;color:#fff;cursor:pointer;margin-top:10px;}
+body {
+  margin:0;
+  padding:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg,#0a0a0a,#1a1a1a);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+.container {
+  text-align:center;
+  background: rgba(0,0,0,0.7);
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,0,0,0.8);
+  width:400px;
+  position:relative;
+  z-index:1;
+}
+
+input {
+  padding:10px;
+  margin:10px 0;
+  border-radius:5px;
+  border:none;
+  width:90%;
+}
+
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  background:#ff4c4c;
+  color:#fff;
+  cursor:pointer;
+  margin-top:10px;
+}
+
 button:hover {background:#ff1a1a;}
-#backgroundCanvas {position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
+
+#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
 </style>
 </head>
 <body>
@@ -20,7 +66,7 @@ button:hover {background:#ff1a1a;}
 </div>
 
 <script type="module">
-// ---------------- Firebase Setup ----------------
+// ------------- Firebase Setup -----------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
@@ -41,10 +87,10 @@ const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
 // ---------------- Google Login ----------------
-document.getElementById('loginBtn').onclick = ()=>{ signInWithPopup(auth, provider); };
+document.getElementById('loginBtn').onclick = () => signInWithPopup(auth, provider);
 
 // ---------------- Auth State ----------------
-onAuthStateChanged(auth, async user=>{
+onAuthStateChanged(auth, async user => {
   if(user){
     const userRef = doc(db,'users',user.uid);
     const userSnap = await getDoc(userRef);
@@ -54,7 +100,7 @@ onAuthStateChanged(auth, async user=>{
       document.getElementById('app').innerHTML = `<h1>مرحبا ${user.displayName}</h1>
       <p>اشتراكك فعال حتى ${new Date(userSnap.data().subEnd).toLocaleDateString()}</p>
       <button id='logoutBtn'>تسجيل الخروج</button>`;
-      document.getElementById('logoutBtn').onclick = ()=>{auth.signOut(); location.reload();};
+      document.getElementById('logoutBtn').onclick = () => {auth.signOut(); location.reload();};
     } else {
       // Enter subscription code
       document.getElementById('app').innerHTML = `<h2>ادخل كود الاشتراك</h2>
@@ -68,7 +114,7 @@ onAuthStateChanged(auth, async user=>{
       <p id='adminMsg'></p>`;
 
       // Activate subscription code
-      document.getElementById('activateBtn').onclick = async ()=>{
+      document.getElementById('activateBtn').onclick = async () => {
         const codeVal = document.getElementById('codeInput').value.trim();
         const codeRef = doc(db,'codes',codeVal);
         const codeSnap = await getDoc(codeRef);
@@ -81,7 +127,7 @@ onAuthStateChanged(auth, async user=>{
       };
 
       // Admin code generation
-      document.getElementById('generateBtn').onclick = async ()=>{
+      document.getElementById('generateBtn').onclick = async () => {
         if(user.email !== 'YOUR_EMAIL@gmail.com'){ document.getElementById('adminMsg').innerText='ليس لديك صلاحية'; return; }
         const code = document.getElementById('newCode').value.trim();
         const days = parseInt(document.getElementById('days').value);
